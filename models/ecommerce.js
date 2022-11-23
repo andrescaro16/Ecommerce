@@ -3,7 +3,7 @@ const conexion = require("../conexion");
 module.exports = {
     login(email,password) {
         return new Promise((resolve, reject) => {
-            conexion.query(`select id from customers where email = ? and password = ?`,
+            conexion.query(`select id_cliente from clientes where email = ? and password = ?`,
                 [email,password],
                 (err, results) => {
                     if (err) reject(err);
@@ -11,10 +11,10 @@ module.exports = {
                 });
         });
     },
-    qorder(id_order) {
+    qorder(id_orden) {
         return new Promise((resolve, reject) => {
-            conexion.query(`select * from orders where id = ?`,
-                [id_order],
+            conexion.query(`select * from ordenes where id_orden = ?`,
+                [id_orden],
                 (err, results) => {
                     if (err) {
                         console.log("err=",err) 
