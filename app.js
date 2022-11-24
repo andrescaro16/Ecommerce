@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRoutes = require('./routes/index');
-var storeRoutes = require('./routes/storeRoutes');
 
 var app = express();
 
@@ -21,8 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRoutes);
-app.use('/store', storeRoutes);
+app.use('/ecommerce', indexRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,6 +38,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+//iniciamos nuestro servidor
 app.listen(port)
 console.log('API escuchando en el puerto ' + port)
 
