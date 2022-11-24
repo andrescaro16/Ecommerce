@@ -3,7 +3,7 @@ const conexion = require("../conexion");
 module.exports = {
     login(email,password) {
         return new Promise((resolve, reject) => {
-            conexion.query(`select id_cliente from clientes where email = ? and password = ?`,
+            conexion.query("select id_cliente from clientes where email = ? and password = ?",
                 [email,password],
                 (err, results) => {
                     if (err) reject(err);
@@ -13,7 +13,7 @@ module.exports = {
     },
     qorder(id_orden) {
         return new Promise((resolve, reject) => {
-            conexion.query(`select * from ordenes where id_orden = ?`,
+            conexion.query("select * from ordenes where id_orden = ?",
                 [id_orden],
                 (err, results) => {
                     if (err) {
@@ -23,12 +23,11 @@ module.exports = {
                     else resolve(results[0]);
                 });
         });
-    },
-    crear_carrito(id_customer) {
+    }, 
+    crear_carrito(id_cliente) {
         return new Promise((resolve, reject) => {
-            cart_date = new Date()
-            conexion.query(`insert into cart (id_customer, cart_date, estado) values (?, ?, 0)`,
-                [id_customer,cart_date],
+            conexion.query('INSERT INTO ordenes(direccion_entrega, total, id_cliente) VALUES("[0, -0]", 0, ?)',
+                [id_cliente],
                 (err, results) => {
                     if (err) {
                         console.log("err=",err)
