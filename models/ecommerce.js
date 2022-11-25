@@ -133,5 +133,32 @@ module.exports = {
                     else resolve(results[0]);
                 });
         });
+    },
+    //BUSQUEDA
+    categoria(nombre) {
+        return new Promise((resolve, reject) => {
+            conexion.query("SELECT * FROM productos AS p INNER JOIN categorias AS c ON(p.id_categoria = c.id_categoria) WHERE c.nombre = ?",
+                [nombre],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err) 
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
+    },
+    precio(precio_uno, precio_dos) {
+        return new Promise((resolve, reject) => {
+            conexion.query("SELECT * FROM productos WHERE precio BETWEEN ? AND ? ORDER BY precio",
+                [precio_uno, precio_dos],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err) 
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
     }
 }
