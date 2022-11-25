@@ -1,6 +1,7 @@
 const conexion = require("../conexion");
 
 module.exports = {
+    //CLIENTES
     login(email,password) {
         return new Promise((resolve, reject) => {
             conexion.query("SELECT id_cliente FROM clientes WHERE email = ? AND password = ?",
@@ -30,6 +31,7 @@ module.exports = {
                 });
         });
     },
+    //ORDENES
     qorder(id_orden) {
         return new Promise((resolve, reject) => {
             conexion.query("SELECT * FROM ordenes WHERE id_orden = ?",
@@ -78,6 +80,57 @@ module.exports = {
                 (err, results) => {
                     if (err) reject(err);
                     else resolve(results);
+                });
+        });
+    },
+    //LOGISTICA
+    stock_producto(nombre) {
+        return new Promise((resolve, reject) => {
+            conexion.query("SELECT id_producto, nombre, stock FROM productos WHERE nombre = ?",
+                [nombre],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err) 
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
+    },
+    producto_mas_costoso() {
+        return new Promise((resolve, reject) => {
+            conexion.query("SELECT id_producto, nombre, precio FROM productos WHERE precio IN(SELECT MAX(precio) FROM productos)",
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err) 
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
+    },
+    producto_mas_barato() {
+        return new Promise((resolve, reject) => {
+            conexion.query("SELECT id_producto, nombre, precio FROM productos WHERE precio IN(SELECT MIN(precio) FROM productos)",
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err) 
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
+    },
+    repartidor(id_orden) {
+        return new Promise((resolve, reject) => {
+            conexion.query("SELECT o.id_orden, c.nombre, c.telefono, o.direccion_entrega, o.total FROM ordenes AS o INNER JOIN clientes AS c ON(o.id_cliente = c.id_cliente) WHERE o.id_orden = ?",
+                [id_orden],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err) 
+                        reject(err);
+                    }
+                    else resolve(results[0]);
                 });
         });
     }
