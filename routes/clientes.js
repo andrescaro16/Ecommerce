@@ -2,6 +2,9 @@ const router = require('express').Router()
 
 const productoModel = require("../models/ecommerce");
 
+
+//  - - - - - - - - - - - - - - - - - - - CONSULTAS - - - - - - - - - - - - - - - - - - - 
+
 router.get('/login', function (req, res, next) {
     productoModel
         .login(req.query['email'], req.query['password'])
@@ -43,5 +46,29 @@ router.get('/mayor_compra', function (req, res, next) {
             return res.status(500).send("DB Error - dinero_total");
         });
 });
+
+
+// - - - - - - - - - - - - - - - - - - - CRUD - - - - - - - - - - - - - - - - - - -
+
+router.post('/registro', function (req, res, next) {
+    let nombre = req.body.nombre;
+    let email = req.body.email;
+    let password = req.body.password;
+    let direccion = req.body.direccion;
+    let telefono = req.body.telefono;
+
+    productoModel
+        .registro_cliente(nombre, email, password, direccion, telefono)
+        .then(data_register => {
+            if (data_register)
+                return res.status(200).send(data_register);
+            else 
+                return res.status(200).send("Customer register error");
+        })
+        .catch(err => {
+            return res.status(500).send("DB error - registro_cliente");
+        });
+});
+
 
 module.exports = router;

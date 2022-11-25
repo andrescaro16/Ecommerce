@@ -1,6 +1,9 @@
 const conexion = require("../conexion");
 
 module.exports = {
+    
+    //  - - - - - - - - - - - - - - - - - - - CONSULTAS - - - - - - - - - - - - - - - - - - - 
+
     //CLIENTES
     login(email,password) {
         return new Promise((resolve, reject) => {
@@ -31,6 +34,7 @@ module.exports = {
                 });
         });
     },
+
     //ORDENES
     qorder(id_orden) {
         return new Promise((resolve, reject) => {
@@ -83,6 +87,7 @@ module.exports = {
                 });
         });
     },
+
     //LOGISTICA
     stock_producto(nombre) {
         return new Promise((resolve, reject) => {
@@ -134,6 +139,7 @@ module.exports = {
                 });
         });
     },
+
     //BUSQUEDA
     categoria(nombre) {
         return new Promise((resolve, reject) => {
@@ -155,6 +161,54 @@ module.exports = {
                 (err, results) => {
                     if (err) {
                         console.log("err=",err) 
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
+    },
+
+
+    // - - - - - - - - - - - - - - - - - - - CRUD - - - - - - - - - - - - - - - - - - -
+
+    //Clientes - post
+    registro_cliente(nombre, email, password, direccion, telefono){
+        return new Promise((resolve, reject) => {
+            conexion.query("INSERT INTO clientes(nombre, email, password, direccion, telefono) VALUES(?, ?, ?, ?, ?)",
+            [nombre, email, password, direccion, telefono],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err)
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
+    },
+
+    //Logistica - put
+    actualizar_stock(stock, id_producto){
+        return new Promise((resolve, reject) => {
+            conexion.query("UPDATE productos SET stock = ? WHERE id_producto = ?",
+            [stock, id_producto],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err)
+                        reject(err);
+                    }
+                    else resolve(results);
+                });
+        });
+    },
+
+    //Logistica - delete
+    eliminar_producto(id_producto){
+        return new Promise((resolve, reject) => {
+            conexion.query("DELETE FROM productos WHERE id_producto = ?",
+            [id_producto],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err)
                         reject(err);
                     }
                     else resolve(results);
