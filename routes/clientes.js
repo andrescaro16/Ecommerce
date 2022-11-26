@@ -3,21 +3,7 @@ const router = require('express').Router()
 const productoModel = require("../models/ecommerce");
 
 
-//  - - - - - - - - - - - - - - - - - - - CONSULTAS - - - - - - - - - - - - - - - - - - - 
-
-router.get('/login', function (req, res, next) {
-    productoModel
-        .login(req.query['email'], req.query['password'])
-        .then(id_cliente => {
-            if (id_cliente)
-                return res.status(200).send(id_cliente);
-            else 
-                return res.status(200).send("Invalid username or password");
-        })
-        .catch(err => {
-            return res.status(500).send("DB Error - Login");
-        });
-});
+//  - - - - - - - - - - - - - - - - - - - CONSULTAS 1.1 - - - - - - - - - - - - - - - - - - - 
 
 router.get('/dinero_total/:id_cliente', function (req, res, next) {
     productoModel
@@ -48,7 +34,7 @@ router.get('/mayor_compra', function (req, res, next) {
 });
 
 
-// - - - - - - - - - - - - - - - - - - - CRUD - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - CRUD 1.2 - - - - - - - - - - - - - - - - - - -
 
 router.post('/registro', function (req, res, next) {
     let nombre = req.body.nombre;
@@ -67,6 +53,37 @@ router.post('/registro', function (req, res, next) {
         })
         .catch(err => {
             return res.status(500).send("DB error - registro_cliente");
+        });
+});
+
+
+//  - - - - - - - - - - - - - - - - - - - OPERACIONES 1.3 - - - - - - - - - - - - - - - - - - - 
+
+router.get('/login', function (req, res, next) {
+    productoModel
+        .login(req.query['email'], req.query['password'])
+        .then(id_cliente => {
+            if (id_cliente)
+                return res.status(200).send("Inicio de sesión exitoso");
+            else 
+                return res.status(200).send("Email o password invalidos");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - Login");
+        });
+});
+
+router.get('/logout/:id_cliente', function (req, res, next) {
+    productoModel
+        .logout(req.params.id_cliente)
+        .then(name => {
+            if (name)
+                return res.status(200).send(name.nombre + ", has cerrado sesión exitosamente");
+            else 
+                return res.status(200).send("Error cerrando sesión - logout");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - Logout");
         });
 });
 

@@ -2,6 +2,9 @@ const router = require('express').Router()
 
 const productoModel = require('../models/ecommerce');
 
+
+//  - - - - - - - - - - - - - - - - - - - CONSULTAS 1.1 - - - - - - - - - - - - - - - - - - - 
+
 router.get('/categoria/:nombre', function (req, res, next) {
     productoModel
         .categoria(req.params.nombre)

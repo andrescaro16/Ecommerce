@@ -4,7 +4,7 @@ const conexion = require('../conexion');
 const productoModel = require("../models/ecommerce");
 
 
-//  - - - - - - - - - - - - - - - - - - - CONSULTAS - - - - - - - - - - - - - - - - - - - 
+//  - - - - - - - - - - - - - - - - - - - CONSULTAS 1.1 - - - - - - - - - - - - - - - - - - - 
 
 router.get('/stock/:nombre', function (req, res, next) {
     productoModel
@@ -63,7 +63,7 @@ router.get('/repartidor/:id_orden', function (req, res, next) {
 });
 
 
-// - - - - - - - - - - - - - - - - - - - CRUD - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - CRUD 1.2 - - - - - - - - - - - - - - - - - - -
 
 router.put('/actualizar_stock/:stock/:id_producto', function (req, res, next) {
     productoModel
