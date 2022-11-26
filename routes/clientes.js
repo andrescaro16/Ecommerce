@@ -1,11 +1,13 @@
 const router = require('express').Router()
 
-const { historial } = require('../models/ecommerce');
 const productoModel = require("../models/ecommerce");
+
 
 
 //  - - - - - - - - - - - - - - - - - - - CONSULTAS 1.1 - - - - - - - - - - - - - - - - - - - 
 
+
+//http://localhost:3000/ecommerce/clientes/dinero_total/<id_cliente>
 router.get('/dinero_total/:id_cliente', function (req, res, next) {
     productoModel
         .dinero_total(req.params.id_cliente)
@@ -20,6 +22,7 @@ router.get('/dinero_total/:id_cliente', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/clientes/mayor_compra
 router.get('/mayor_compra', function (req, res, next) {
     productoModel
         .mayor_compra()
@@ -35,8 +38,11 @@ router.get('/mayor_compra', function (req, res, next) {
 });
 
 
+
 // - - - - - - - - - - - - - - - - - - - CRUD 1.2 - - - - - - - - - - - - - - - - - - -
 
+
+//http://localhost:3000/ecommerce/clientes/registro
 router.post('/registro', function (req, res, next) {
     let nombre = req.body.nombre;
     let email = req.body.email;
@@ -58,8 +64,11 @@ router.post('/registro', function (req, res, next) {
 });
 
 
+
 //  - - - - - - - - - - - - - - - - - - - OPERACIONES 1.3 - - - - - - - - - - - - - - - - - - - 
 
+
+//http://localhost:3000/ecommerce/clientes/login?email=<email>&password=<password>
 router.get('/login', function (req, res, next) {
     productoModel
         .login(req.query['email'], req.query['password'])
@@ -74,6 +83,7 @@ router.get('/login', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/clientes/logout/<id_cliente>
 router.get('/logout/:id_cliente', function (req, res, next) {
     productoModel
         .logout(req.params.id_cliente)
@@ -88,6 +98,7 @@ router.get('/logout/:id_cliente', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/clientes/cerrar_cuenta/<id_cliente>
 router.put('/cerrar_cuenta/:id_cliente', function (req, res, next) {
     productoModel
         .cerrar_cuenta(req.params.id_cliente)
@@ -102,6 +113,7 @@ router.put('/cerrar_cuenta/:id_cliente', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/clientes/historial/<id_cliente>
 router.get('/historial/:id_cliente', function (req, res, next) {
     productoModel
         .historial(req.params.id_cliente)

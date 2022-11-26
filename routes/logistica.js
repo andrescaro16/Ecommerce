@@ -1,11 +1,13 @@
 const router = require('express').Router()
 
-const conexion = require('../conexion');
 const productoModel = require("../models/ecommerce");
+
 
 
 //  - - - - - - - - - - - - - - - - - - - CONSULTAS 1.1 - - - - - - - - - - - - - - - - - - - 
 
+
+//http://localhost:3000/ecommerce/logistica/stock/<nombre>
 router.get('/stock/:nombre', function (req, res, next) {
     productoModel
         .stock_producto(req.params.nombre)
@@ -20,6 +22,7 @@ router.get('/stock/:nombre', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/logistica/producto_mas_costoso
 router.get('/producto_mas_costoso', function (req, res, next) {
     productoModel
         .producto_mas_costoso()
@@ -34,6 +37,7 @@ router.get('/producto_mas_costoso', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/logistica/producto_mas_barato
 router.get('/producto_mas_barato', function (req, res, next) {
     productoModel
         .producto_mas_barato()
@@ -48,6 +52,7 @@ router.get('/producto_mas_barato', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/logistica/repartidor/<id_orden>
 router.get('/repartidor/:id_orden', function (req, res, next) {
     productoModel
         .repartidor(req.params.id_orden)
@@ -65,6 +70,7 @@ router.get('/repartidor/:id_orden', function (req, res, next) {
 
 // - - - - - - - - - - - - - - - - - - - CRUD 1.2 - - - - - - - - - - - - - - - - - - -
 
+//http://localhost:3000/ecommerce/logistica/actualizar_stock/<stock>/<id_producto>
 router.put('/actualizar_stock/:stock/:id_producto', function (req, res, next) {
     productoModel
         .actualizar_stock(req.params.stock, req.params.id_producto)
@@ -79,6 +85,7 @@ router.put('/actualizar_stock/:stock/:id_producto', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/logistica/eliminar_producto/<id_producto>
 router.delete('/eliminar_producto/:id_producto', function (req, res, next) {
     productoModel
         .eliminar_producto(req.params.id_producto)

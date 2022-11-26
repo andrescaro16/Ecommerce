@@ -3,8 +3,11 @@ const router = require('express').Router()
 const productoModel = require('../models/ecommerce');
 
 
+
 //  - - - - - - - - - - - - - - - - - - - CONSULTAS 1.1 - - - - - - - - - - - - - - - - - - - 
 
+
+//http://localhost:3000/ecommerce/busqueda/categoria/<nombre>
 router.get('/categoria/:nombre', function (req, res, next) {
     productoModel
         .categoria(req.params.nombre)
@@ -19,6 +22,7 @@ router.get('/categoria/:nombre', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/busqueda/precio
 router.get('/precio', function (req, res, next) {
     let precio_uno = req.body.precio_uno;
     let precio_dos = req.body.precio_dos;

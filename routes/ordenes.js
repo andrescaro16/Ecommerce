@@ -1,11 +1,13 @@
 const router = require('express').Router()
 
-const ecommerce = require('../models/ecommerce');
 const productoModel = require("../models/ecommerce");
+
 
 
 //  - - - - - - - - - - - - - - - - - - - CONSULTAS 1.1 - - - - - - - - - - - - - - - - - - - 
 
+
+//http://localhost:3000/ecommerce/ordenes/ventas_fecha
 router.get('/ventas_fecha', function (req, res, next) {
     let fecha_uno = req.body.fecha_uno;
     let fecha_dos = req.body.fecha_dos;
@@ -23,6 +25,7 @@ router.get('/ventas_fecha', function (req, res, next) {
 
 });
 
+//http://localhost:3000/ecommerce/ordenes/envios
 router.get('/envios', function (req, res, next) {
     productoModel
         .envios()
@@ -38,6 +41,7 @@ router.get('/envios', function (req, res, next) {
 
 });
 
+//http://localhost:3000/ecommerce/ordenes/productos_en_carrito/<id_orden>
 router.get('/productos_en_carrito/:id_orden', function (req, res, next) {
     productoModel
         .productos_en_carrito(req.params.id_orden)
@@ -56,6 +60,8 @@ router.get('/productos_en_carrito/:id_orden', function (req, res, next) {
 
 //  - - - - - - - - - - - - - - - - - - - OPERACIONES 1.3 - - - - - - - - - - - - - - - - - - -
 
+
+//http://localhost:3000/ecommerce/ordenes/qorder/<id_orden>
 router.get('/qorder/:id_orden', function (req, res, next) {
     productoModel
         .qorder(req.params.id_orden)
@@ -71,6 +77,7 @@ router.get('/qorder/:id_orden', function (req, res, next) {
 
 });
 
+//http://localhost:3000/ecommerce/ordenes/crear_carrito_uno/<id_cliente>
 router.get('/crear_carrito_uno/:id_cliente', function (req, res, next) {
     productoModel
         .crear_carrito_uno(req.params.id_cliente)
@@ -85,6 +92,7 @@ router.get('/crear_carrito_uno/:id_cliente', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/ordenes/crear_carrito_dos/<id_cliente>
 router.post('/crear_carrito_dos/:id_cliente', function (req, res, next) {
     productoModel
         .crear_carrito_dos(req.params.id_cliente)
@@ -99,6 +107,7 @@ router.post('/crear_carrito_dos/:id_cliente', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/ordenes/agregar_producto_carrito
 router.post('/agregar_producto_carrito/', function (req, res, next) {
     let cantidad = req.body.cantidad;
     let id_producto = req.body.id_producto;
@@ -117,6 +126,7 @@ router.post('/agregar_producto_carrito/', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/ordenes/modificar_cantidad_producto
 router.put('/modificar_cantidad_producto/', function (req, res, next) {
     let cantidad = req.body.cantidad;
     let id_producto = req.body.id_producto;
@@ -135,6 +145,7 @@ router.put('/modificar_cantidad_producto/', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/ordenes/borrar_producto_carrito/<id_producto>/<id_orden>
 router.delete('/borrar_producto_carrito/:id_producto/:id_orden', function (req, res, next) {
     productoModel
         .borrar_producto_carrito(req.params.id_producto, req.params.id_orden)
@@ -149,6 +160,7 @@ router.delete('/borrar_producto_carrito/:id_producto/:id_orden', function (req, 
         });
 });
 
+//http://localhost:3000/ecommerce/ordenes/compra_uno/<id_orden>
 router.get('/compra_uno/:id_orden', function (req, res, next) {
     productoModel
         .compra_uno(req.params.id_orden)
@@ -163,6 +175,7 @@ router.get('/compra_uno/:id_orden', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/ordenes/compra_dos
 router.put('/compra_dos', function (req, res, next) {
     let total = req.body.total;
     let direccion_entrega = req.body.direccion_entrega;
@@ -181,6 +194,7 @@ router.put('/compra_dos', function (req, res, next) {
         });
 });
 
+//http://localhost:3000/ecommerce/ordenes/compra_tres/<id_orden>
 router.put('/compra_tres/:id_orden', function (req, res, next) {
     productoModel
         .compra_tres(req.params.id_orden)
@@ -192,6 +206,21 @@ router.put('/compra_tres/:id_orden', function (req, res, next) {
         })
         .catch(err => {
             return res.status(500).send("DB Error - compra_tres");
+        });
+});
+
+//http://localhost:3000/ecommerce/ordenes/vaciar_carrito/<id_orden>
+router.delete('/vaciar_carrito/:id_orden', function (req, res, next) {
+    productoModel
+        .vaciar_carrito(req.params.id_orden)
+        .then(result => {
+            if (result)
+                return res.status(200).send("Carrito vaciado");
+            else 
+                return res.status(200).send("Error vaciando carrito - vaciar_carrito");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - vaciar_carrito");
         });
 });
 
