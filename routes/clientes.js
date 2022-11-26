@@ -1,5 +1,6 @@
 const router = require('express').Router()
 
+const { historial } = require('../models/ecommerce');
 const productoModel = require("../models/ecommerce");
 
 
@@ -84,6 +85,34 @@ router.get('/logout/:id_cliente', function (req, res, next) {
         })
         .catch(err => {
             return res.status(500).send("DB Error - Logout");
+        });
+});
+
+router.put('/cerrar_cuenta/:id_cliente', function (req, res, next) {
+    productoModel
+        .cerrar_cuenta(req.params.id_cliente)
+        .then(result => {
+            if (result)
+                return res.status(200).send("Cuenta cerrada exitosamente");
+            else 
+                return res.status(200).send("Error cerrando cuenta - cerrar_cuenta");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - cerrar_cuenta");
+        });
+});
+
+router.get('/historial/:id_cliente', function (req, res, next) {
+    productoModel
+        .historial(req.params.id_cliente)
+        .then(historial => {
+            if (historial)
+                return res.status(200).send(historial);
+            else 
+                return res.status(200).send("Error recuperando historial - historial");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - historial");
         });
 });
 

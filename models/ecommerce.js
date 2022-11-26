@@ -211,6 +211,26 @@ module.exports = {
                 });
         });
     },
+    cerrar_cuenta(id_cliente) {
+        return new Promise((resolve, reject) => {
+            conexion.query('UPDATE clientes SET activo = "inactivo" WHERE id_cliente = ?',
+                [id_cliente],
+                (err, results) => {
+                    if (err) reject(err);
+                    else resolve(results);
+                });
+        });
+    },
+    historial(id_cliente) {
+        return new Promise((resolve, reject) => {
+            conexion.query('SELECT id_orden, estado, total FROM ordenes WHERE id_cliente = ?',
+                [id_cliente],
+                (err, results) => {
+                    if (err) reject(err);
+                    else resolve(results);
+                });
+        });
+    },
 
 
     //Ordenes
@@ -277,11 +297,75 @@ module.exports = {
     },
     //Consultar los productos de un carrito está arriba en Ordenes 1.1
 
-    //Continuemos
+    //Continuando...
     modificar_cantidad_producto(cantidad, id_producto, id_orden) {
         return new Promise((resolve, reject) => {
             conexion.query('UPDATE orden_detalles SET cantidad = ? WHERE id_producto = ? AND id_orden = ?',
                 [cantidad, id_producto, id_orden],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err)
+                        reject(err);
+                    }
+                    else {
+                        console.log("results=",results) 
+                        resolve(results);
+                    }
+                });
+        });
+    },
+    borrar_producto_carrito(id_producto, id_orden) {
+        return new Promise((resolve, reject) => {
+            conexion.query('DELETE FROM orden_detalles WHERE id_orden = ? AND id_producto = ?',
+                [id_orden, id_producto],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err)
+                        reject(err);
+                    }
+                    else {
+                        console.log("results=",results) 
+                        resolve(results);
+                    }
+                });
+        });
+    },
+    compra_uno(id_orden) {
+        return new Promise((resolve, reject) => {
+            conexion.query('SELECT id_orden, SUM(precio * cantidad) as total FROM orden_detalles as od JOIN productos as p ON(p.id_producto=od.id_producto) WHERE id_orden = ?',
+                [id_orden],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err)
+                        reject(err);
+                    }
+                    else {
+                        console.log("results=",results) 
+                        resolve(results);
+                    }
+                });
+        });
+    },
+    compra_dos(total, direccion_entrega, id_orden) {
+        return new Promise((resolve, reject) => {
+            conexion.query('UPDATE ordenes SET total = ?, direccion_entrega = ?, estado = "envio" WHERE id_orden = ?',
+                [total, direccion_entrega, id_orden],
+                (err, results) => {
+                    if (err) {
+                        console.log("err=",err)
+                        reject(err);
+                    }
+                    else {
+                        console.log("results=",results) 
+                        resolve(results);
+                    }
+                });
+        });
+    },
+    compra_tres(id_orden) {
+        return new Promise((resolve, reject) => {
+            conexion.query('UPDATE ordenes SET estado = "entregado" WHERE id_orden = ?',
+                [id_orden],
                 (err, results) => {
                     if (err) {
                         console.log("err=",err)

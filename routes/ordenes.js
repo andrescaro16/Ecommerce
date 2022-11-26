@@ -135,5 +135,65 @@ router.put('/modificar_cantidad_producto/', function (req, res, next) {
         });
 });
 
+router.delete('/borrar_producto_carrito/:id_producto/:id_orden', function (req, res, next) {
+    productoModel
+        .borrar_producto_carrito(req.params.id_producto, req.params.id_orden)
+        .then(results => {
+            if (results)
+                return res.status(200).send("Producto eliminado");
+            else 
+                return res.status(200).send("Error eliminando el producto del carrito - borrar_producto_carrito");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - borrar_producto_carrito");
+        });
+});
+
+router.get('/compra_uno/:id_orden', function (req, res, next) {
+    productoModel
+        .compra_uno(req.params.id_orden)
+        .then(total => {
+            if (total)
+                return res.status(200).send("El total de tu factura es: " + total[0].total + " COP");
+            else 
+                return res.status(200).send("Error obteniendo el total - compra_uno");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - compra_uno");
+        });
+});
+
+router.put('/compra_dos', function (req, res, next) {
+    let total = req.body.total;
+    let direccion_entrega = req.body.direccion_entrega;
+    let id_orden = req.body.id_orden;
+
+    productoModel
+        .compra_dos(total, direccion_entrega, id_orden)
+        .then(result => {
+            if (result)
+                return res.status(200).send("- - - - - Comprobante - - - - -\nTu pedido con id " + id_orden + " se\nencuentra en proceso de envio");
+            else 
+                return res.status(200).send("Error en la transacción - compra_dos");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - compra_dos");
+        });
+});
+
+router.put('/compra_tres/:id_orden', function (req, res, next) {
+    productoModel
+        .compra_tres(req.params.id_orden)
+        .then(result => {
+            if (result)
+                return res.status(200).send("Tu pedido con id " + req.params.id_orden + " ha sido entregado.\n¡Gracias por comprar con nosotros!");
+            else 
+                return res.status(200).send("Error actualización de entrega - compra_tres");
+        })
+        .catch(err => {
+            return res.status(500).send("DB Error - compra_tres");
+        });
+});
+
 
 module.exports = router;
