@@ -70,10 +70,13 @@ router.get('/repartidor/:id_orden', function (req, res, next) {
 
 // - - - - - - - - - - - - - - - - - - - CRUD 1.2 - - - - - - - - - - - - - - - - - - -
 
-//http://localhost:3000/ecommerce/logistica/actualizar_stock/<stock>/<id_producto>
-router.put('/actualizar_stock/:stock/:id_producto', function (req, res, next) {
+//http://localhost:3000/ecommerce/logistica/actualizar_stock
+router.put('/actualizar_stock', function (req, res, next) {
+    let stock = req.body.stock;
+    let id_producto = req.body.id_producto;
+
     productoModel
-        .actualizar_stock(req.params.stock, req.params.id_producto)
+        .actualizar_stock(stock, id_producto)
         .then(update_results => {
             if (update_results)
                 return res.status(200).send(update_results);
@@ -85,13 +88,15 @@ router.put('/actualizar_stock/:stock/:id_producto', function (req, res, next) {
         });
 });
 
-//http://localhost:3000/ecommerce/logistica/eliminar_producto/<id_producto>
-router.delete('/eliminar_producto/:id_producto', function (req, res, next) {
+//http://localhost:3000/ecommerce/logistica/eliminar_producto
+router.delete('/eliminar_producto', function (req, res, next) {
+    let id_producto = req.body.id_producto;
+
     productoModel
-        .eliminar_producto(req.params.id_producto)
+        .eliminar_producto(id_producto)
         .then(data_results => {
             if (data_results)
-                return res.status(200).send(data_results);
+                return res.status(200).send("Producto con id " + id_producto + " eliminado");
             else 
                 return res.status(200).send("Error deleting - eliminar_producto");
         })

@@ -54,7 +54,7 @@ router.post('/registro', function (req, res, next) {
         .registro_cliente(nombre, email, password, direccion, telefono)
         .then(data_register => {
             if (data_register)
-                return res.status(200).send(data_register);
+                return res.status(200).send(nombre + ", te has registrado correctamente");
             else 
                 return res.status(200).send("Customer register error");
         })

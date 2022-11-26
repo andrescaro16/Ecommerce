@@ -298,7 +298,7 @@ module.exports = {
     //Validamos si el usuario ya cuenta con un carrito
     crear_carrito_uno(id_cliente) {
         return new Promise((resolve, reject) => {
-            conexion.query('SELECT * FROM ordenes WHERE id_cliente = ? AND estado = "carrito";',
+            conexion.query('SELECT * FROM ordenes WHERE id_cliente = ? AND estado = "carrito"',
                 [id_cliente],
                 (err, results) => {
                     if (err) {
