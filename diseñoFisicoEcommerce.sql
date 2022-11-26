@@ -1,15 +1,6 @@
-create user "dbuser"@"%" identified with mysql_native_password BY "Eafit2022.";
-grant all privileges on ecommerce.* to "dbuser"@"%";
-flush privileges;
-
-
-
-
-
 CREATE DATABASE IF NOT EXISTS ecommerce;
 
 USE ecommerce;
-
 
 
 CREATE TABLE IF NOT EXISTS clientes(
@@ -129,3 +120,24 @@ INSERT INTO productos(sku, nombre, precio, descripcion, stock, id_categoria) VAL
 ("TC825067", "COMPUTADORA",	2000000, "BUENOS GRAFICOS",	3, 6),
 ("TC318161", "CELULAR",	2000000, "ULTIMA GENERACION", 2, 6),
 ("TC211257", "CARGADOR", 200000, "RESISTENTE AL AGUA", 1, 6);
+
+
+INSERT INTO ordenes(estado, direccion_entrega, fecha, total, id_cliente) VALUES
+("carrito", "[6.233457949188366, -75.60414783780772]", "2022-11-10 08:08:30", 0, 1),
+("carrito", "[6.17683453257968, -75.59198797682318]", "2022-11-25 15:08:30", 0, 2),
+("envio", "[6.249510072876535, -75.5838858116853]", "2022-11-28 20:08:30",5100000 , 9),
+("entregado", "[6.3240122320986, -75.5574548248153]", "2022-09-20 02:08:30", 4000000, 8),
+("entregado", "[6.3240122320986, -75.5574548248168]", "2021-08-25 03:08:30", 230000, 8);
+
+
+INSERT INTO orden_detalles(cantidad, id_producto, id_orden) VALUES
+(5, 5, 1),
+(2, 14, 2),
+(2,8, 2),
+(1, 20,3),
+(1, 19, 3),
+(1, 18, 3),
+(1, 17, 3),
+(2, 18, 4),
+(3, 3, 5),
+(7,2, 5);
