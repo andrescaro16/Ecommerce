@@ -56,6 +56,7 @@ Luego de esto, puedes visitar cada uno de los links con los parámetros requerid
 http://localhost:3000/ecommerce/clientes/dinero_total/id_cliente
 
 Parámetros - URI:
+
 id_cliente
 
 &nbsp;
@@ -71,7 +72,9 @@ Sin parámetros
 http://localhost:3000/ecommerce/ordenes/ventas_fecha
 
 Parámetros - Body:
+
 fecha_uno
+
 fecha_dos
 
 &nbsp;
@@ -87,6 +90,7 @@ Sin parámetros
 http://localhost:3000/ecommerce/ordenes/productos_en_carrito/id_orden
 
 Parámetros - URI:
+
 id_orden
 
 &nbsp;
@@ -95,6 +99,7 @@ id_orden
 http://localhost:3000/ecommerce/logistica/stock/nombre
 
 Parámetros - URI:
+
 nombre
 
 &nbsp;
@@ -117,6 +122,7 @@ Sin parámetros
 http://localhost:3000/ecommerce/logistica/repartidor/id_orden
 
 Parámetros - URI:
+
 id_orden
 
 &nbsp;
@@ -125,6 +131,7 @@ id_orden
 http://localhost:3000/ecommerce/busqueda/categoria/nombre
 
 Parámetros - URI:
+
 nombre
 
 &nbsp;
@@ -133,7 +140,9 @@ nombre
 http://localhost:3000/ecommerce/busqueda/precio
 
 Parámetros - Body:
+
 precio_uno
+
 precio_dos
 
 
@@ -149,10 +158,15 @@ POST
 http://localhost:3000/ecommerce/clientes/registro
 
 Parámetros - Body:
+
 nombre
+
 email
+
 password
+
 direccion
+
 telefono
 
 &nbsp;
@@ -163,7 +177,9 @@ PUT
 http://localhost:3000/ecommerce/logistica/actualizar_stock
 
 Parámetros - Body:
+
 stock
+
 id_producto
 
 &nbsp;
@@ -174,6 +190,7 @@ DELETE
 http://localhost:3000/ecommerce/logistica/eliminar_producto
 
 Parámetros - Body:
+
 id_producto
 
 
@@ -187,7 +204,9 @@ id_producto
 http://localhost:3000/ecommerce/clientes/login?email=email&password=password
 
 Parámetros - URI:
+
 email
+
 password
 
 &nbsp;
@@ -196,6 +215,7 @@ password
 http://localhost:3000/ecommerce/clientes/logout/id_cliente
 
 Parámetros - URI:
+
 id_cliente
 
 &nbsp;
@@ -204,6 +224,7 @@ id_cliente
 http://localhost:3000/ecommerce/clientes/cerrar_cuenta/id_cliente
 
 Parámetros - URI:
+
 id_cliente
 
 &nbsp;
@@ -212,6 +233,7 @@ id_cliente
 http://localhost:3000/ecommerce/clientes/historial/id_cliente
 
 Parámetros - URI:
+
 id_cliente
 
 &nbsp;
@@ -220,6 +242,7 @@ id_cliente
 http://localhost:3000/ecommerce/ordenes/qorder/id_orden
 
 Parámetros - URI:
+
 id_orden
 
 &nbsp;
@@ -232,6 +255,7 @@ Validamos si el usuario ya cuenta con un carrito
 http://localhost:3000/ecommerce/ordenes/crear_carrito_uno/id_cliente
 
 Parámetros - URI:
+
 id_cliente
 
 ##### Crear carrito II
@@ -240,6 +264,7 @@ Creamos el carrito (hacer solo en caso de crear_carrito_uno permitirlo primero)
 http://localhost:3000/ecommerce/ordenes/crear_carrito_dos/id_cliente
 
 Parámetros - URI:
+
 id_cliente
 
 &nbsp;
@@ -248,8 +273,11 @@ id_cliente
 http://localhost:3000/ecommerce/ordenes/agregar_producto_carrito
 
 Parámetros - Body:
+
 cantidad
+
 id_producto
+
 id_orden
 
 &nbsp;
@@ -258,8 +286,11 @@ id_orden
 http://localhost:3000/ecommerce/ordenes/modificar_cantidad_producto
 
 Parámetros - Body:
+
 cantidad
+
 id_producto
+
 id_orden
 
 &nbsp;
@@ -268,7 +299,9 @@ id_orden
 http://localhost:3000/ecommerce/ordenes/borrar_producto_carrito/id_producto/id_orden
 
 Parámetros - URI:
+
 id_producto
+
 id_orden
 
 &nbsp;
@@ -281,6 +314,7 @@ Calculamos el total de la compra
 http://localhost:3000/ecommerce/ordenes/compra_uno/id_orden
 
 Parámetros - URI:
+
 id_orden
 
 ##### Realizar compra II
@@ -289,8 +323,11 @@ Se efectúa la compra. Actualizamos el total con el calculado en compra_uno (ing
 http://localhost:3000/ecommerce/ordenes/compra_dos
 
 Parámetros - Body:
+
 total
+
 direccion_entrega
+
 id_orden
 
 ##### Realizar compra III
@@ -299,6 +336,7 @@ Actualizamos la orden de 'envio' a 'entregado' cuando se haya completado la entr
 http://localhost:3000/ecommerce/ordenes/compra_tres/id_orden
 
 Parámetros - URI:
+
 id_orden
 
 &nbsp;
@@ -307,4 +345,5 @@ id_orden
 http://localhost:3000/ecommerce/ordenes/vaciar_carrito/id_orden
 
 Parámetros - URI:
+
 id_orden
